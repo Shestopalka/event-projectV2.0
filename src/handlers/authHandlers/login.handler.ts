@@ -11,12 +11,12 @@ import { Users } from 'src/db/entities/users.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class LoginHandler implements IHandle<LoginDto, void> {
+export class LoginHandler implements IHandle<LoginDto, number> {
   constructor(
     @InjectRepository(Users)
     private readonly userRepository: Repository<Users>,
   ) {}
-  async handle(dto: LoginDto): Promise<void> {
+  async handle(dto: LoginDto): Promise<number> {
     try {
       const existUser = await this.userRepository.findOne({
         where: {
@@ -33,6 +33,7 @@ export class LoginHandler implements IHandle<LoginDto, void> {
       if (!isValidPassword) {
         throw new BadRequestException('Password not valid!');
       }
+      return existUser.id;
     } catch (err) {
       throw err;
     }

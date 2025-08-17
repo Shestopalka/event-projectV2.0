@@ -1,16 +1,16 @@
-import { forwardRef, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthModule } from 'src/auth/auth.module';
 import { Users } from 'src/db/entities/users.entity';
-import { RegistrationHandler } from './registration.handler';
-import { JwtService } from '@nestjs/jwt';
-import { GetJwtToken } from './getJwtToken.handler';
+import { RegistrationHandler } from './authHandlers/registration.handler';
+import { GetJwtToken } from './authHandlers/getJwtToken.handler';
 import { JwtConfigModule } from 'src/auth/jwt/jwt.config.module';
-import { LoginHandler } from './login.handler';
+import { LoginHandler } from './authHandlers/login.handler';
+import { Events } from 'src/db/entities/events.entity';
+import { EventHandler } from './eventHandlers/event.handler';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Users]), JwtConfigModule],
-  providers: [RegistrationHandler, GetJwtToken, LoginHandler],
-  exports: [RegistrationHandler, GetJwtToken, LoginHandler],
+  imports: [TypeOrmModule.forFeature([Users, Events]), JwtConfigModule],
+  providers: [RegistrationHandler, GetJwtToken, LoginHandler, EventHandler],
+  exports: [RegistrationHandler, GetJwtToken, LoginHandler, EventHandler],
 })
 export class HadnlersModule {}

@@ -4,6 +4,9 @@ import { AuthModule } from './auth/auth.module';
 import { HadnlersModule } from './handlers/handlers.module';
 import { AuthController } from './auth/auth.controller';
 import { ConfigModule } from '@nestjs/config';
+import { EventModule } from './events/event.module';
+import { UsersModule } from './users/users.module';
+import { ParticipantsModule } from './events/Participants/participants.module';
 
 @Module({
   imports: [
@@ -11,6 +14,9 @@ import { ConfigModule } from '@nestjs/config';
     DbModule,
     AuthModule,
     HadnlersModule,
+    EventModule,
+    UsersModule,
+    ParticipantsModule,
   ],
   controllers: [],
   providers: [],
